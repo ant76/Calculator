@@ -23,7 +23,15 @@ class ViewController: UIViewController {
             return Double(displayResultLable.text!)!
         }
         set {
-            displayResultLable.text = "\(newValue)"
+            let value = "\(newValue)"
+            let valueArray = value.componentsSeparatedByString(".")
+            
+            if valueArray[1] == "0" {
+                displayResultLable.text = "\(valueArray[0])"
+            } else {
+                displayResultLable.text = value
+            }
+            
             stillTyping = false
         }
     }
