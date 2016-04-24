@@ -36,9 +36,16 @@ class ViewController: UIViewController {
         }
     }
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     @IBAction func numberPressed(sender: UIButton) {
         let number = sender.currentTitle!
-        
         
         if stillTyping {
             if displayResultLable.text?.characters.count < 20 {
@@ -48,8 +55,6 @@ class ViewController: UIViewController {
             displayResultLable.text = number;
             stillTyping = true
         }
-        
-        
     }
 
     @IBAction func twoOperandsSignPressed(sender: UIButton) {
