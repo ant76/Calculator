@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var firstOperand: Double = 0
     var secondOperand:Double = 0
     var operationSign: String = ""
+    var dotIsPleced = false
     
     var currentInput: Double {
         get {
@@ -53,13 +54,56 @@ class ViewController: UIViewController {
     func operateWithTwoOperands(operation:(Double, Double) -> Double) {
         currentInput = operation(firstOperand, secondOperand)
         stillTyping = false
+        dotIsPleced = false
     }
     
-    @IBAction func equalitySignPressed(sender: UIButton) {
+    @IBAction func clearButtonPressed(sender: UIButton) {
+        firstOperand = 0
+        secondOperand = 0
+        currentInput = 0
+        displayResultLable.text = "0"
+        stillTyping = false
+        operationSign = ""
+        dotIsPleced = false
+    }
+    
+    
+    @IBAction func plusMinusButtonPressed(sender: UIButton) {
+        currentInput = -currentInput
+    }
+    
+    @IBAction func persentageButtonPressed(sender: UIButton) {
+        if firstOperand == 0 {
+            currentInput = currentInput / 100
+        } else {
+            currentInput = firstOperand * currentInput / 100
+        }
         
+        
+        currentInput = sqrt(currentInput)
+    }
+    
+    @IBAction func squareRootButtonPressed(sender: UIButton) {
+        currentInput = sqrt(currentInput)
+    }
+    
+    @IBAction func dotButtonPressed(sender: UIButton) {
+        if stillTyping && !dotIsPleced {
+            displayResultLable.text = displayResultLable.text! + "."
+            dotIsPleced = true
+        } else if !stillTyping && !dotIsPleced {
+            displayResultLable.text = "0."
+        }
+        
+    }
+    
+    
+    @IBAction func equalitySignPressed(sender: UIButton) {
         if stillTyping {
              secondOperand = currentInput
         }
+        
+        dotIsPleced = false
         
         switch operationSign {
         case "+":
