@@ -10,16 +10,41 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    @IBOutlet weak var displayResultLable: UILabel!
+    
+    var stillTyping = false
+    var firstOperand: Double = 0
+    
+    var currentInput: Double {
+        get {
+            return Double(displayResultLable.text!)!
+        }
+        set {
+            displayResultLable.text = "\(newValue)"
+            stillTyping = false
+        }
+    }
+    
+    @IBAction func numberPressed(sender: UIButton) {
+        let number = sender.currentTitle!
+        
+        
+        if stillTyping {
+            if displayResultLable.text?.characters.count < 20 {
+                displayResultLable.text = displayResultLable.text! + number
+            }
+        } else {
+            displayResultLable.text = number;
+            stillTyping = true
+        }
+        
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func twoOperandsSignPressed(sender: UIButton) {
+        firstOperand = currentInput
+        print(firstOperand)
+        stillTyping = false
     }
-
-
 }
 
