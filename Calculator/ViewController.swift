@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     
     var stillTyping = false
     var firstOperand: Double = 0
+    var secondOperand:Double = 0
+    var operationSign: String = ""
     
     var currentInput: Double {
         get {
@@ -42,9 +44,36 @@ class ViewController: UIViewController {
     }
 
     @IBAction func twoOperandsSignPressed(sender: UIButton) {
+        operationSign = sender.currentTitle!
         firstOperand = currentInput
-        print(firstOperand)
+
         stillTyping = false
+    }
+    
+    func operateWithTwoOperands(operation:(Double, Double) -> Double) {
+        currentInput = operation(firstOperand, secondOperand)
+        stillTyping = false
+    }
+    
+    @IBAction func equalitySignPressed(sender: UIButton) {
+        
+        if stillTyping {
+             secondOperand = currentInput
+        }
+        
+        switch operationSign {
+        case "+":
+            operateWithTwoOperands{$0 + $1}
+        case "-":
+            operateWithTwoOperands{$0 - $1}
+        case "×":
+            operateWithTwoOperands{$0 * $1}
+        case "÷":
+            operateWithTwoOperands{$0 / $1}
+            
+        default: break
+        
+        }
     }
 }
 
